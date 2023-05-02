@@ -2,9 +2,15 @@ const fs = require('fs');
 const https = require('https');
 const querystring = require('querystring');
 
+
+console.log(process.env.INPUT_PAYLOAD)
 let payload = JSON.parse(fs.readFileSync(process.env.INPUT_PAYLOAD, 'utf8'));
+console.log('payload', payload);
+
+console.log(process.env.INPUT_RESULT)
 let result = JSON.parse(fs.readFileSync(process.env.INPUT_RESULT, 'utf8'));
-let token = process.env.INPUT_TOKEN;
+console.log('result', result);
+
 
 let body = querystring.stringify(result);
 let parsedURL = new URL(payload.server.url);

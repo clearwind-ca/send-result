@@ -24,7 +24,7 @@ const options = {
     'Content-Length': postBody.length,
     'User-Agent': 'actions/health-check-result'
   },
-  method: 'POST'
+  method: 'PATCH'
 }
 
 const req = https.request(options, (res) => {

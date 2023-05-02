@@ -9,10 +9,6 @@ inputs:
     description: 'The filename of the result'
     required: false
     default: '/tmp/service-catalog-result.json'
-  token:
-    description: 'The token to use to authenticate with the catalog'
-    required: false
-    default: ${{ secrets.SERVICE_CATALOG_TOKEN }}
 runs:
   using: 'node16'
   main: 'payload.js'

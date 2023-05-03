@@ -2,24 +2,17 @@ const fs = require('fs');
 const https = require('https');
 const querystring = require('querystring');
 
-
-console.log(process.env.INPUT_PAYLOAD)
 let payload = JSON.parse(fs.readFileSync(process.env.INPUT_PAYLOAD, 'utf8'));
-console.log('payload', payload);
-
-console.log(process.env.INPUT_RESULT)
 let result = JSON.parse(fs.readFileSync(process.env.INPUT_RESULT, 'utf8'));
-console.log('result', result);
-
 
 let body = querystring.stringify(result);
-let parsedURL = new URL(payload.server.url);
 
+let parsedURL = new URL(payload.server.url);
 const options = {
   hostname: parsedURL.host,
   path: payload.server.endpoint,
   headers: {
-    'Authorization': `token ${process.env.INPUT_TOKEN}`,
+    'Authorization': `token ${process.env.SERVICE_CATALOG_TOKEN}`,
     'Content-Type': 'application/x-www-form-urlencoded',
     'Content-Length': body.length,
     'User-Agent': 'actions/health-check-result'

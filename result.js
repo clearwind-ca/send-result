@@ -2,8 +2,8 @@ const fs = require('fs');
 const https = require('https');
 const querystring = require('querystring');
 
-let payload = JSON.parse(fs.readFileSync(process.env.INPUT_PAYLOAD, 'utf8'));
-let result = JSON.parse(fs.readFileSync(process.env.INPUT_RESULT, 'utf8'));
+let payload = JSON.parse(fs.readFileSync(process.env.INPUT_PAYLOAD_FILE, 'utf8'));
+let result = JSON.parse(fs.readFileSync(process.env.INPUT_RESULT_FILE, 'utf8'));
 
 let body = querystring.stringify(result);
 

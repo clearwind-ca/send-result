@@ -1,11 +1,11 @@
 name: 'Service Catalog: Sends Payload'
 description: 'Sends the result of a health check back to the catalog'
 inputs:
-  payload:
+  payload_file:
     description: 'The filename of the payload'
     required: false
     default: '/tmp/service-catalog-payload.json'
-  result:
+  result_file:
     description: 'The filename of the result'
     required: false
     default: '/tmp/service-catalog-result.json'

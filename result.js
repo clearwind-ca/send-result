@@ -3,7 +3,24 @@ const https = require('https');
 const querystring = require('querystring');
 
 let payload = JSON.parse(fs.readFileSync(process.env.INPUT_PAYLOAD_FILE, 'utf8'));
-let result = JSON.parse(fs.readFileSync(process.env.INPUT_RESULT_FILE, 'utf8'));
+let parsedFile = false;
+let result = {};
+
+if (process.env.INPUT_RESULT_FILE) {
+  console.log(`Reading ${process.env.INPUT_RESULT_FILE}`)
+  if (fs.existsSync(process.env.INPUT_RESULT_FILE)) {
+    result = JSON.parse(fs.readFileSync(process.env.INPUT_RESULT_FILE, 'utf8'));
+    parsedFile = true;
+  }
+}
+
+if (!parsedFile) {
+  console.log(`Using individual inputs.`);
+  result = {
+    "status": process.env.INPUT_STATUS,
+    "message": process.env.INPUT_MESSAGE,
+  }
+}
 
 let body = querystring.stringify(result);
 

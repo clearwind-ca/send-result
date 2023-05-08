@@ -17,7 +17,7 @@ if (process.env.INPUT_RESULT_FILE) {
 if (!parsedFile) {
   console.log(`Using individual inputs.`);
   result = {
-    "status": process.env.INPUT_STATUS,
+    "result": process.env.INPUT_RESULT,
     "message": process.env.INPUT_MESSAGE,
   }
 }

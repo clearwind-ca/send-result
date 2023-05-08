@@ -9,6 +9,12 @@ inputs:
     description: 'The filename of the result'
     required: false
     default: '/tmp/service-catalog-result.json'
+  result:
+    description: 'The result of the health check'
+    required: false
+  message:
+    description: 'A message with more detail on the health check'
+    required: false
 runs:
   using: 'node16'
   main: 'result.js'

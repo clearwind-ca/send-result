@@ -2,19 +2,35 @@ const fs = require('fs');
 const https = require('https');
 const querystring = require('querystring');
 
-let payload = JSON.parse(fs.readFileSync(process.env.INPUT_PAYLOAD_FILE, 'utf8'));
-let parsedFile = false;
+let parsedPayloadFile = false;
+let payload = {};
+
+if (process.env.INPUT_PAYLOAD_FILE) {
+  console.log(`Reading ${process.env.INPUT_PAYLOAD_FILE}`)
+  if (fs.existsSync(process.env.INPUT_PAYLOAD_FILE)) {
+    payload = JSON.parse(fs.readFileSync(process.env.INPUT_PAYLOAD_FILE, 'utf8'));
+    parsedPayloadFile = true;
+  }
+}
+
+if (!parsedPayloadFile) {
+  console.log(`Using individual payload input.`);
+  payload = Buffer.from(process.env.INPUT_PAYLOAD, 'base64').toString('utf-8');
+  payload = JSON.parse(payload);
+}
+
+let parsedResultFile = false;
 let result = {};
 
 if (process.env.INPUT_RESULT_FILE) {
   console.log(`Reading ${process.env.INPUT_RESULT_FILE}`)
   if (fs.existsSync(process.env.INPUT_RESULT_FILE)) {
     result = JSON.parse(fs.readFileSync(process.env.INPUT_RESULT_FILE, 'utf8'));
-    parsedFile = true;
+    parsedResultFile = true;
   }
 }
 
-if (!parsedFile) {
+if (!parsedResultFile) {
   console.log(`Using individual inputs.`);
   result = {
     "result": process.env.INPUT_RESULT,

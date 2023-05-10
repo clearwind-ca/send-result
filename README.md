@@ -2,27 +2,23 @@ A GitHub Action to easily send the result of a health check to the [Service Cata
 
 ## Usage
 
-```yaml
-    - uses: clearwind-ca/get-payload@v1
-    # Do something with the payload
-    # Assumes that the result will be in /tmp/service-catalog-payload.json
-    - uses: clearwind-ca/send-payload@v1
-      env:
-        SERVICE_CATALOG_TOKEN: ${{ secrets.SERVICE_CATALOG_TOKEN }}
-```
-
 With inputs:
 
 ```yaml
-    - uses: clearwind-ca/get-payload@v1
-    # Do something with the payload
-    # Assumes that the result will be in /tmp/service-catalog-payload.json
     - uses: clearwind-ca/send-result@inputs
       env:
         SERVICE_CATALOG_TOKEN: ${{ secrets.SERVICE_CATALOG_TOKEN }}
       with:
         result: "fail"
         message: "this didn't work out i'm afraid"
+```
+
+With a file written at the default location.
+
+```yaml
+    - uses: clearwind-ca/send-payload@v1
+      env:
+        SERVICE_CATALOG_TOKEN: ${{ secrets.SERVICE_CATALOG_TOKEN }}
 ```
 
 ## Required secrets
@@ -43,6 +39,8 @@ This secret must exist so that it can authenticate with the Service Catalog.
 If `payload_file` and `result_file` are not specified, then they will use the defaults above.
 
 The `payload_file` is the result of using `get-payload` and will place the payload in the correct place for this Action to consume.
+
+If the `payload_file` is not specified and the default file is not present then it will use the input from the `repository_dispatch` event, if the `repository_dispatch` event payload exists.
 
 If the `result_file` is not specified and the default file is not present then it will use the following inputs will be used.
 
